@@ -26,7 +26,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            touch-action: none; /* Prevent scroll on touch devices */
+            touch-action: none;
             user-select: none;
         }
 
@@ -135,9 +135,8 @@
             filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
         }
 
-        /* Shared SVG Path Styles */
         .hand-path {
-            fill: var(--bg-color); /* Occlusion */
+            fill: var(--bg-color); 
             stroke: var(--neon-purple);
             stroke-width: 3;
             stroke-linecap: round;
@@ -146,12 +145,12 @@
             opacity: 0;
         }
 
-        /* Hand Animation Class */
+
         .draw-hand {
             animation: dashDraw 1.2s ease-in-out forwards, glowPulse 2s infinite alternate;
         }
 
-        /* Rose specific styles */
+
         .rose-stem {
             fill: none;
             stroke: var(--sage);
@@ -272,7 +271,7 @@
         
         @keyframes fillIn {
             0% { fill: var(--bg-color); }
-            100% { fill: rgba(255, 92, 157, 0.1); } /* slight tint for petals */
+            100% { fill: rgba(255, 92, 157, 0.1); } 
         }
         
         @keyframes fillInLeaf {
@@ -300,34 +299,28 @@
         </div>
 
         <div class="stage">
-            <!-- ASL Container -->
             <div class="svg-wrapper" id="aslWrapper">
                 <svg id="aslSvg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Paths will be injected here via JS -->
                 </svg>
             </div>
 
-            <!-- Rose Container -->
             <div class="svg-wrapper" id="roseWrapper" style="opacity: 0; pointer-events: none;">
                 <svg id="roseSvg" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Stem -->
                     <path class="rose-stem" d="M100,220 C90,180 110,130 100,90" />
-                    
-                    <!-- Leaves -->
+                
                     <path class="rose-leaf" d="M105,160 C120,150 140,155 145,170 C130,180 115,175 105,160 Z" />
                     <path class="rose-leaf" d="M95,140 C80,130 60,135 55,150 C70,160 85,155 95,140 Z" />
                     
-                    <!-- Back Petals -->
+
                     <path class="rose-petal-back" d="M70,70 C70,40 100,30 100,60 C100,30 130,40 130,70 C130,100 100,100 100,100 C100,100 70,100 70,70 Z" />
                     <path class="rose-petal-back" d="M60,85 C50,60 70,45 85,60 C80,80 75,95 100,105 C75,105 65,100 60,85 Z" />
                     <path class="rose-petal-back" d="M140,85 C150,60 130,45 115,60 C120,80 125,95 100,105 C125,105 135,100 140,85 Z" />
 
-                    <!-- Core/Front Petals -->
+
                     <path class="rose-petal-core" d="M80,80 C80,55 100,50 100,75 C100,50 120,55 120,80 C120,100 100,105 100,105 C100,105 80,100 80,80 Z" />
                     <path class="rose-petal-front" d="M85,85 C90,70 100,70 100,85 C100,95 95,100 100,100 C90,100 85,95 85,85 Z" />
                     <path class="rose-petal-front" d="M115,85 C110,70 100,70 100,85 C100,95 105,100 100,100 C110,100 115,95 115,85 Z" />
-                    
-                    <!-- Center swril -->
+
                     <path class="rose-petal-core" d="M95,85 C100,80 105,85 100,90 C95,85 100,80 95,85" style="fill:none; stroke-width:2;"/>
                 </svg>
             </div>
@@ -341,7 +334,7 @@
     </div>
 
     <script>
-        // --- Particle System ---
+
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         const ambientGlow = document.getElementById('ambientGlow');
@@ -363,7 +356,7 @@
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
-                this.y = Math.random() * height + height; // Start below screen
+                this.y = Math.random() * height + height; 
                 this.size = Math.random() * 2 + 0.5;
                 this.color = colors[Math.floor(Math.random() * colors.length)];
                 this.speedY = Math.random() * -0.5 - 0.1;
@@ -466,26 +459,26 @@
                   L130,110 L130,90 C130,80 145,80 145,90 L145,120
                   L150,115 C160,105 170,115 160,125 L135,150 
                   C130,170 120,180 100,180 Z
-                  M130,110 L130,30 C130,20 145,20 145,30 L145,90`, // Pinky up, fist
+                  M130,110 L130,30 C130,20 145,20 145,30 L145,90`, 
             'L': `M100,180 C80,180 70,160 70,140 L70,120 L75,120
                   C75,100 65,90 50,90 C30,90 30,105 50,110 L70,125
                   L70,30 C70,15 90,15 90,30 L90,110
                   L100,110 L100,80 C100,70 115,70 115,80 L115,110
                   L120,110 L120,85 C120,75 135,75 135,85 L135,110
                   L140,110 L140,90 C140,80 155,80 155,90 L155,130
-                  C150,160 130,180 100,180 Z`, // Index up, thumb out
+                  C150,160 130,180 100,180 Z`,
             'O': `M100,180 C70,180 60,150 60,130 C60,110 50,100 45,90 C40,80 50,70 60,75 C70,80 80,95 85,110
                   C90,90 85,60 90,50 C100,30 130,40 135,60 C140,80 130,110 125,110
                   C140,100 150,90 160,100 C170,110 165,125 150,135
                   C140,160 120,180 100,180 Z
-                  M85,110 C90,105 100,105 105,110 C100,115 90,115 85,110`, // Circle with fingers and thumb
+                  M85,110 C90,105 100,105 105,110 C100,115 90,115 85,110`, 
             'V': `M100,180 C80,180 70,160 70,140 L70,120 L75,120
                   L60,110 C50,105 50,90 60,85 C70,80 80,90 85,100 L85,110
                   L85,30 C85,15 100,15 100,30 L100,110
                   L105,110 L115,30 C120,15 135,20 130,35 L120,110
                   L125,110 L125,90 C125,80 140,80 140,90 L140,110
                   L145,110 L145,95 C145,85 160,85 160,95 L160,130
-                  C150,160 130,180 100,180 Z`, // Index and middle up, apart
+                  C150,160 130,180 100,180 Z`,
             'E': `M100,180 C80,180 70,160 70,140 C70,120 70,100 65,90 C60,80 70,70 80,75 C90,80 95,100 95,110
                   L95,110 L95,100 C95,90 110,90 110,100 L110,115
                   L110,115 L110,105 C110,95 125,95 125,105 L125,120
